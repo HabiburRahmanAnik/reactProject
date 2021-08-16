@@ -112,20 +112,15 @@ function App() {
     );
   };
 
-  // let content = <p></p>;
-  // const userInfo = localStorage.getItem('isLoggedIn');
-
-  // if (userInfo === '1') {
-  //   content = (
-  //     <Route path="/login" exact>
-  //       <Redirect to="/admin/dashboard" />
-  //     </Route>
-  //   );
-  // }
+  const logoutHandler = ()=>{
+    localStorage.clear();
+    setIsLoggedIn(false);
+    console.log('ok');
+  }
 
   return (
     <>
-      <AdminNavigation isLogin={isLoggedIn} />
+      <AdminNavigation isLogin={isLoggedIn} onLogout={logoutHandler}/>
       <Switch>
         <Route path="/" exact>
           <Redirect to="/login" />
@@ -185,6 +180,9 @@ function App() {
         </Route>
         <Route path="/admin/viewDetails/:id" exact>
           <ViewUserDetails />
+        </Route>
+        <Route path='/logout' exact>
+          <Redirect to='/login'/>
         </Route>
       </Switch>
     </>

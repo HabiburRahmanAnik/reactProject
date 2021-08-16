@@ -32,7 +32,7 @@ const Dashboard = () => {
         <div className='row'>
             <div className='column'>
                 <div className='card card1'>
-                    <h4>Doctor</h4>
+                    <h4 >Doctor</h4>
                     <p>{users.doctor}</p>
                 </div>
             </div>
