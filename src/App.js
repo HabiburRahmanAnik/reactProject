@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import AdminNavigation from './components/Layout/AdminNavigation';
 import AddUser from './components/pages/AddUserForm';
 import CheckAvailableRoom from './components/pages/CheckAvailableRoom';
@@ -18,11 +18,26 @@ import BlockUser from './components/pages/BlockUser';
 import NewUser from './components/pages/NewUser';
 import RoomBooking from './components/pages/RoomBooking';
 import UpdateSalary from './components/pages/UpdateSalary';
+import Login from './components/pages/Login';
 
 function App() {
   const [users, setUsers] = useState([]);
 
   const { sendRequest: fetchRequest } = useHttp();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const userLoggedInformation = localStorage.getItem('isLoggedIn');
+
+    if (userLoggedInformation === '1') {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const login = () => {
+    localStorage.setItem('isLoggedIn', '1');
+    setIsLoggedIn(true);
+  };
 
   useEffect(() => {
     const transformUser = (userData) => {
@@ -97,13 +112,36 @@ function App() {
     );
   };
 
+  // let content = <p></p>;
+  // const userInfo = localStorage.getItem('isLoggedIn');
+
+  // if (userInfo === '1') {
+  //   content = (
+  //     <Route path="/login" exact>
+  //       <Redirect to="/admin/dashboard" />
+  //     </Route>
+  //   );
+  // }
+
   return (
     <>
-      <AdminNavigation />
+      <AdminNavigation isLogin={isLoggedIn} />
       <Switch>
+        <Route path="/" exact>
+          <Redirect to="/login" />
+        </Route>
+        { localStorage.getItem('isLoggedIn') &&
+          <Route path="/login" exact>
+            <Redirect to="/admin/dashboard" />
+          </Route>
+        }
+        <Route path="/login">
+          <Login onLogin={login} />
+        </Route>
         <Route path="/admin/dashboard" exact>
           <Dashboard />
         </Route>
+        
         <Route path="/admin/addUser" exact>
           <AddUser status="add" addUser={addUser} />
         </Route>
@@ -128,7 +166,7 @@ function App() {
           <WorkSchedule />
         </Route>
         <Route path="/admin/manageSalary/:id" exact>
-          <UpdateSalary/>
+          <UpdateSalary />
         </Route>
         <Route path="/admin/doctorReview" exact>
           <ViewDoctorReview />
@@ -143,7 +181,7 @@ function App() {
           <CheckAvailableRoom />
         </Route>
         <Route path="/admin/patientRoom/:id" exact>
-          <RoomBooking/>
+          <RoomBooking />
         </Route>
         <Route path="/admin/viewDetails/:id" exact>
           <ViewUserDetails />
