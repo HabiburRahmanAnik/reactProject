@@ -1,39 +1,55 @@
 import React from 'react';
 import { useState } from 'react';
 import classes from './Login.module.css';
-import { useHistory } from 'react-router-dom';
 
 const Login = (props) => {
-    const [email,setEmail]= useState('');
-    const [password,setPassword]= useState('');
-    const history = useHistory();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-    const emailHandler =(e) =>{
-        setEmail(e.target.value);
+  const emailHandler = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const passwordHandler = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    if(email.trim().length === 0 && password.trim().length === 0){
+        alert('Please Enter email and password')
     }
 
-    const passwordHandler = (e)=>{
-        setPassword(e.target.value);
-    }
+    props.onLogin(email,password);
+  };
 
-    const submitHandler = (e)=>{
-        e.preventDefault();
-
-        props.onLogin();
-        history.push('/admin/dashboard')
-    }
-
-
-    return (
-     <div class={classes.login}>
-        <h1>Log In</h1>
-        <form onSubmit={submitHandler}>
-            <input id={classes.name} type="email" name="email" placeholder="Email..." onChange={emailHandler}/><br/>
-            <input id={classes.pass} type="password" name="password" placeholder="Password..." onChange={passwordHandler}/><br />
-            <input id={classes.button} type="submit" name="submit" value="Log In"/>
-        </form>
+  return (
+    <div class={classes.login}>
+      <h1>Login</h1>
+      <form onSubmit={submitHandler}>
+        <label htmlFor="email">E-Mail</label>
+        <input
+          id={classes.name}
+          type="email"
+          name="email"
+          onChange={emailHandler}
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          id={classes.pass}
+          type="password"
+          name="password"
+          onChange={passwordHandler}
+        />
+        <div className={classes.actions}>
+          <button type="submit" className={classes.button}>
+            Login
+          </button>
+        </div>
+      </form>
     </div>
-    );
-}
+  );
+};
 
 export default Login;

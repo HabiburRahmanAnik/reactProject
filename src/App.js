@@ -22,6 +22,7 @@ import Login from './components/pages/Login';
 
 function App() {
   const [users, setUsers] = useState([]);
+  const [userLoginData, setUserLoginData] = useState([]);
 
   const { sendRequest: fetchRequest } = useHttp();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -34,10 +35,31 @@ function App() {
     }
   }, []);
 
-  const login = () => {
-    localStorage.setItem('isLoggedIn', '1');
-    setIsLoggedIn(true);
+  const login = (email, password) => {
+    const transformUser = (userData) => {
+      setUserLoginData(userData);
+    };
+    fetchRequest(
+      {
+        url: `http://localhost:8000/api/login`,
+        method: 'POST',
+        body: { email: email, password: password },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+      transformUser
+    );
+    
+    if (userLoginData.email === email && userLoginData.password === password) {
+      localStorage.setItem('isLoggedIn', '1');
+      localStorage.setItem('id',userLoginData.id);
+      localStorage.setItem('username',userLoginData.username);
+      setIsLoggedIn(true);
+    }
+
   };
+
 
   useEffect(() => {
     const transformUser = (userData) => {
@@ -59,18 +81,6 @@ function App() {
           'Content-Type': 'application/json',
         },
       },
-      transformUser
-    );
-  };
-
-  const [user, setUser] = useState([]);
-
-  const fetchUser = (id) => {
-    const transformUser = (userData) => {
-      setUser(userData);
-    };
-    fetchRequest(
-      { url: `http://localhost:8000/api/userlist/${id}` },
       transformUser
     );
   };
@@ -112,31 +122,42 @@ function App() {
     );
   };
 
-  const logoutHandler = ()=>{
+  const [user, setUser] = useState([]);
+
+  const fetchUser = (id) => {
+    const transformUser = (userData) => {
+      setUser(userData);
+    };
+    fetchRequest(
+      { url: `http://localhost:8000/api/userlist/${id}` },
+      transformUser
+    );
+  };
+
+  const logoutHandler = () => {
     localStorage.clear();
     setIsLoggedIn(false);
     console.log('ok');
-  }
+  };
 
   return (
     <>
-      <AdminNavigation isLogin={isLoggedIn} onLogout={logoutHandler}/>
+      <AdminNavigation isLogin={isLoggedIn} onLogout={logoutHandler} />
       <Switch>
         <Route path="/" exact>
           <Redirect to="/login" />
         </Route>
-        { localStorage.getItem('isLoggedIn') &&
+        {localStorage.getItem('isLoggedIn') && (
           <Route path="/login" exact>
             <Redirect to="/admin/dashboard" />
           </Route>
-        }
+        )}
         <Route path="/login">
           <Login onLogin={login} />
         </Route>
         <Route path="/admin/dashboard" exact>
           <Dashboard />
         </Route>
-        
         <Route path="/admin/addUser" exact>
           <AddUser status="add" addUser={addUser} />
         </Route>
@@ -181,9 +202,15 @@ function App() {
         <Route path="/admin/viewDetails/:id" exact>
           <ViewUserDetails />
         </Route>
-        <Route path='/logout' exact>
-          <Redirect to='/login'/>
+        <Route path="/logout" exact>
+          <Redirect to="/login" />
         </Route>
+
+        {!isLoggedIn && (
+          <Route path="*">
+            <Redirect to="/login" />
+          </Route>
+        )}
       </Switch>
     </>
   );
