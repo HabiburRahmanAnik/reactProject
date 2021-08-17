@@ -12,7 +12,6 @@ import Login from './components/pages/Login';
 import RouteLink from './components/pages/RouteLink';
 import ChangePassword from './components/pages/ChangePassword';
 
-
 function App() {
   const [users, setUsers] = useState([]);
   const [userLoginData, setUserLoginData] = useState([]);
@@ -21,9 +20,6 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = (email, password) => {
-    const transformUser = (userData) => {
-      setUserLoginData(userData);
-    };
     fetchRequest(
       {
         url: `http://localhost:8000/api/login`,
@@ -33,7 +29,7 @@ function App() {
           'Content-Type': 'application/json',
         },
       },
-      transformUser
+      setUserLoginData
     );
 
     if (userLoginData.email === email && userLoginData.password === password) {
@@ -58,12 +54,8 @@ function App() {
     setIsLoggedIn(false);
   };
 
-
-  const transformUser = (userData) => {
-    setUsers(userData);
-  };
   useEffect(() => {
-    fetchRequest({ url: 'http://localhost:8000/api/list' }, transformUser);
+    fetchRequest({ url: 'http://localhost:8000/api/list' }, setUsers);
   }, [fetchRequest]);
 
   const addUser = (userData) => {
@@ -76,14 +68,11 @@ function App() {
           'Content-Type': 'application/json',
         },
       },
-      transformUser
+      setUsers
     );
   };
 
-  const [user, setUser] = useState([]);
-
   const editUser = (userData, id) => {
-    
     fetchRequest(
       {
         url: `http://localhost:8000/api/edit/${id}`,
@@ -93,26 +82,22 @@ function App() {
           'Content-Type': 'application/json',
         },
       },
-      transformUser
+      setUsers
     );
   };
 
   const deleteUser = (id) => {
-    fetchRequest(
-      { url: `http://localhost:8000/api/delete/${id}` },
-      transformUser
-    );
+    fetchRequest({ url: `http://localhost:8000/api/delete/${id}` }, setUsers);
   };
-
 
   const blockUser = (id) => {
     fetchRequest(
       { url: `http://localhost:8000/api/block/${id}`, method: 'POST' },
-      transformUser
+      setUsers
     );
   };
 
-
+  const [user, setUser] = useState([]);
   const fetchUser = (id) => {
     const transformUser = (userData) => {
       setUser(userData);
@@ -136,7 +121,7 @@ function App() {
           </Route>
         )}
         <Route path="/login">
-          <Login onLogin={login} isLoggedIn={isLoggedIn}/>
+          <Login onLogin={login} isLoggedIn={isLoggedIn} />
         </Route>
         <Route path="/admin/dashboard" exact>
           <Dashboard />
@@ -158,10 +143,10 @@ function App() {
         <Route path="/logout" exact>
           <Redirect to="/login" />
         </Route>
-        <Route path='/admin/changePassword' exact>
-          <ChangePassword/>
+        <Route path="/admin/changePassword" exact>
+          <ChangePassword />
         </Route>
-        <RouteLink/>
+        <RouteLink />
         {!isLoggedIn && (
           <Route path="*">
             <Redirect to="/login" />
