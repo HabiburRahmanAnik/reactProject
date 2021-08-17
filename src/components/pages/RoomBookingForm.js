@@ -46,6 +46,7 @@ const RoomBookingForm = (props) => {
             },
           },rooms);
       }
+
     const submitHandler =(e)=>{
         e.preventDefault();
 
@@ -53,12 +54,11 @@ const RoomBookingForm = (props) => {
             roomNo:enteredRoomNumber,
             type:type,
             price:price,
-            name:patientName,
+            patientName:patientName,
             phone:phoneNo,
         }
 
         roomBooking(roomData)
-    
 
         history.push('/admin/patientRoom')
 

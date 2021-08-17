@@ -10,6 +10,9 @@ import { useEffect } from 'react';
 import NewUser from './components/pages/NewUser';
 import Login from './components/pages/Login';
 import RouteLink from './components/pages/RouteLink';
+import Header from './components/pages/Header';
+import ChangePassword from './components/pages/ChangePassword';
+
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -38,6 +41,7 @@ function App() {
       localStorage.setItem('isLoggedIn', '1');
       localStorage.setItem('id', userLoginData.id);
       localStorage.setItem('username', userLoginData.username);
+      localStorage.setItem('password', userLoginData.password);
       setIsLoggedIn(true);
     }
   };
@@ -55,10 +59,10 @@ function App() {
     setIsLoggedIn(false);
   };
 
+
   const transformUser = (userData) => {
     setUsers(userData);
   };
-
   useEffect(() => {
     fetchRequest({ url: 'http://localhost:8000/api/list' }, transformUser);
   }, [fetchRequest]);
@@ -77,7 +81,10 @@ function App() {
     );
   };
 
+  const [user, setUser] = useState([]);
+
   const editUser = (userData, id) => {
+    
     fetchRequest(
       {
         url: `http://localhost:8000/api/edit/${id}`,
@@ -98,6 +105,7 @@ function App() {
     );
   };
 
+
   const blockUser = (id) => {
     fetchRequest(
       { url: `http://localhost:8000/api/block/${id}`, method: 'POST' },
@@ -105,7 +113,6 @@ function App() {
     );
   };
 
-  const [user, setUser] = useState([]);
 
   const fetchUser = (id) => {
     const transformUser = (userData) => {
@@ -151,6 +158,9 @@ function App() {
         </Route>
         <Route path="/logout" exact>
           <Redirect to="/login" />
+        </Route>
+        <Route path='/admin/changePassword' exact>
+          <ChangePassword/>
         </Route>
         <RouteLink/>
         {!isLoggedIn && (

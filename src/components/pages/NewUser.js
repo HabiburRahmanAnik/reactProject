@@ -2,7 +2,6 @@ import React from 'react';
 import AddUser from './AddUserForm';
 
 const NewUser = (props) => {
-
   return (
     <>
       {props.user.map((u) => (
