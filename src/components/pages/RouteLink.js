@@ -1,20 +1,12 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { Redirect, Route } from 'react-router';
-import useHttp from '../hooks/use-http';
 import CheckAvailableRoom from './CheckAvailableRoom';
-import Dashboard from './Dashboard';
-import Login from './Login';
 import ManageSalary from './ManageSalary';
-import NewUser from './NewUser';
 import RoomBooking from './RoomBooking';
 import UpdateSalary from './UpdateSalary';
 import UserReport from './UserReport';
 import ViewDoctorReview from './ViewDoctorReview';
 import ViewTransactionHistory from './ViewTransactionHistory';
 import ViewUserDetails from './ViewUserDetails';
-import ViewUserList from './viewUserList';
 import WorkSchedule from './WorkSchedule';
 
 const RouteLink = (props) => {
