@@ -7,7 +7,6 @@ import ViewUserList from './components/pages/viewUserList';
 import useHttp from './components/hooks/use-http';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import BlockUser from './components/pages/BlockUser';
 import NewUser from './components/pages/NewUser';
 import Login from './components/pages/Login';
 import RouteLink from './components/pages/RouteLink';
@@ -15,10 +14,8 @@ import RouteLink from './components/pages/RouteLink';
 function App() {
   const [users, setUsers] = useState([]);
   const [userLoginData, setUserLoginData] = useState([]);
-  // const history = 
 
   const { sendRequest: fetchRequest } = useHttp();
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const login = (email, password) => {
@@ -143,9 +140,6 @@ function App() {
         </Route>
         <Route path="/admin/editUser/:id" exact>
           <NewUser status="edit" editUser={editUser} user={user} />
-        </Route>
-        <Route path="/admin/block/:id" exact>
-          <BlockUser />
         </Route>
         <Route path="/admin/viewUserList" exact>
           <ViewUserList
