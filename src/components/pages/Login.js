@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import classes from './Login.module.css';
+import { useHistory } from 'react-router';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
@@ -19,6 +21,10 @@ const Login = (props) => {
 
     if(email.trim().length === 0 && password.trim().length === 0){
         alert('Please Enter email and password')
+    }
+
+    if(props.isLoggedIn){
+      history.push('/admin/dashboard');
     }
 
     props.onLogin(email,password);

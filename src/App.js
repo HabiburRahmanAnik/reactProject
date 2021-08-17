@@ -19,21 +19,16 @@ import NewUser from './components/pages/NewUser';
 import RoomBooking from './components/pages/RoomBooking';
 import UpdateSalary from './components/pages/UpdateSalary';
 import Login from './components/pages/Login';
+import RouteLink from './components/pages/RouteLink';
 
 function App() {
   const [users, setUsers] = useState([]);
   const [userLoginData, setUserLoginData] = useState([]);
+  // const history = 
 
   const { sendRequest: fetchRequest } = useHttp();
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const userLoggedInformation = localStorage.getItem('isLoggedIn');
-
-    if (userLoggedInformation === '1') {
-      setIsLoggedIn(true);
-    }
-  }, []);
 
   const login = (email, password) => {
     const transformUser = (userData) => {
@@ -50,28 +45,37 @@ function App() {
       },
       transformUser
     );
-    
+
     if (userLoginData.email === email && userLoginData.password === password) {
       localStorage.setItem('isLoggedIn', '1');
-      localStorage.setItem('id',userLoginData.id);
-      localStorage.setItem('username',userLoginData.username);
+      localStorage.setItem('id', userLoginData.id);
+      localStorage.setItem('username', userLoginData.username);
       setIsLoggedIn(true);
     }
-
   };
 
+  useEffect(() => {
+    const userLoggedInformation = localStorage.getItem('isLoggedIn');
+
+    if (userLoggedInformation === '1') {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const logoutHandler = () => {
+    localStorage.clear();
+    setIsLoggedIn(false);
+  };
+
+  const transformUser = (userData) => {
+    setUsers(userData);
+  };
 
   useEffect(() => {
-    const transformUser = (userData) => {
-      setUsers(userData);
-    };
     fetchRequest({ url: 'http://localhost:8000/api/list' }, transformUser);
   }, [fetchRequest]);
 
   const addUser = (userData) => {
-    const transformUser = (userData) => {
-      setUsers(userData);
-    };
     fetchRequest(
       {
         url: `http://localhost:8000/api/add`,
@@ -86,9 +90,6 @@ function App() {
   };
 
   const editUser = (userData, id) => {
-    const transformUser = (userData) => {
-      setUsers(userData);
-    };
     fetchRequest(
       {
         url: `http://localhost:8000/api/edit/${id}`,
@@ -103,9 +104,6 @@ function App() {
   };
 
   const deleteUser = (id) => {
-    const transformUser = (userData) => {
-      setUsers(userData);
-    };
     fetchRequest(
       { url: `http://localhost:8000/api/delete/${id}` },
       transformUser
@@ -113,9 +111,6 @@ function App() {
   };
 
   const blockUser = (id) => {
-    const transformUser = (userData) => {
-      setUsers(userData);
-    };
     fetchRequest(
       { url: `http://localhost:8000/api/block/${id}`, method: 'POST' },
       transformUser
@@ -134,12 +129,6 @@ function App() {
     );
   };
 
-  const logoutHandler = () => {
-    localStorage.clear();
-    setIsLoggedIn(false);
-    console.log('ok');
-  };
-
   return (
     <>
       <AdminNavigation isLogin={isLoggedIn} onLogout={logoutHandler} />
@@ -153,7 +142,7 @@ function App() {
           </Route>
         )}
         <Route path="/login">
-          <Login onLogin={login} />
+          <Login onLogin={login} isLoggedIn={isLoggedIn}/>
         </Route>
         <Route path="/admin/dashboard" exact>
           <Dashboard />
@@ -175,37 +164,10 @@ function App() {
             fetchUser={fetchUser}
           />
         </Route>
-        <Route path="/admin/manageSalary" exact>
-          <ManageSalary />
-        </Route>
-        <Route path="/admin/workSchedule" exact>
-          <WorkSchedule />
-        </Route>
-        <Route path="/admin/manageSalary/:id" exact>
-          <UpdateSalary />
-        </Route>
-        <Route path="/admin/doctorReview" exact>
-          <ViewDoctorReview />
-        </Route>
-        <Route path="/admin/transactionHistory" exact>
-          <ViewTransactionHistory />
-        </Route>
-        <Route path="/admin/userReport" exact>
-          <UserReport />
-        </Route>
-        <Route path="/admin/patientRoom" exact>
-          <CheckAvailableRoom />
-        </Route>
-        <Route path="/admin/patientRoom/:id" exact>
-          <RoomBooking />
-        </Route>
-        <Route path="/admin/viewDetails/:id" exact>
-          <ViewUserDetails />
-        </Route>
         <Route path="/logout" exact>
           <Redirect to="/login" />
         </Route>
-
+        <RouteLink/>
         {!isLoggedIn && (
           <Route path="*">
             <Redirect to="/login" />
