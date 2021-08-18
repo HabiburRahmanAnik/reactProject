@@ -7,6 +7,8 @@ const UserContext = React.createContext({
   setUsers: () => {},
   onBlockUser: (id) => {},
   onDeleteUser: (id) => {},
+  user:[],
+  onFetchUser:(id)=>{}
 });
 
 export const UserContextProvider = (props) => {
@@ -28,13 +30,27 @@ export const UserContextProvider = (props) => {
     );
   };
 
+  const [user, setUser] = useState([]);
+
+  const fetchUser = (id) => {
+    const transformUser = (userData) => {
+      setUser(userData);
+    };
+    fetchRequest(
+      { url: `http://localhost:8000/api/userlist/${id}` },
+      transformUser
+    );
+  };
+
   return (
     <UserContext.Provider
       value={{
         users: users,
         setUsers: setUsers,
         onDeleteUser: deleteUserHandler,
-        onBlockUser:blockUserHandler
+        onBlockUser:blockUserHandler,
+        onFetchUser:fetchUser,
+        user:user,
       }}
     >
       {props.children}

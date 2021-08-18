@@ -4,8 +4,8 @@ import UserContext from '../context/user-context';
 import useHttp from '../hooks/use-http';
 import AddUser from './AddUser';
 
-const NewUser = (props) => {
-  const {users,setUsers} = useContext(UserContext);
+const NewUser = () => {
+  const utx = useContext(UserContext);
   const { sendRequest: fetchRequest } = useHttp();
 
   const editUser = (userData, id) => {
@@ -18,13 +18,13 @@ const NewUser = (props) => {
           'Content-Type': 'application/json',
         },
       },
-      setUsers
+      utx.setUsers
     );
   };
 
   return (
     <>
-      {props.user.map((u) => (
+      {utx.user.map((u) => (
         <AddUser
           key={u.id}
           status="edit"
