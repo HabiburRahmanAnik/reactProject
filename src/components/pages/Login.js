@@ -2,8 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import classes from './Login.module.css';
 import { useHistory } from 'react-router';
+import AuthContext from '../context/auth-context';
+import { useContext } from 'react';
 
 const Login = (props) => {
+  const authCtx = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
@@ -27,7 +30,7 @@ const Login = (props) => {
       history.push('/admin/dashboard');
     }
 
-    props.onLogin(email,password);
+    authCtx.onLogin(email,password);
   };
 
   return (

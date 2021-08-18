@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import UserContext from '../context/user-context';
+import useHttp from '../hooks/use-http';
 
 const AddUser = (props) => {
+  const utx = useContext(UserContext);
   const params = useParams();
   const id = params.id;
 
@@ -11,6 +15,7 @@ const AddUser = (props) => {
   const [enteredPassword, setEnteredPassword] = useState('');
   const [enteredActive, setEnteredActive] = useState(props.status==='edit'?props.active:1);
   const [enteredType, setEnteredType] = useState('admin');
+  const { sendRequest: fetchRequest } = useHttp();
 
 
   const usernameHandler = (e) => {
@@ -32,6 +37,20 @@ const AddUser = (props) => {
     setEnteredType(e.target.value);
   };
 
+  const addUser = (userData) => {
+    fetchRequest(
+      {
+        url: `http://localhost:8000/api/add`,
+        method: 'POST',
+        body: userData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+      utx.setUsers
+    );
+  };
+
   const history = useHistory();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -44,7 +63,8 @@ const AddUser = (props) => {
         password: enteredPassword,
         type: enteredType,
       };   
-      props.addUser(userData);
+
+      addUser(userData);
     }
 
     if(props.status === 'edit'){

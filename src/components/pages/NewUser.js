@@ -1,5 +1,5 @@
 import React from 'react';
-import AddUser from './AddUserForm';
+import AddUser from './AddUser';
 
 const NewUser = (props) => {
   return (

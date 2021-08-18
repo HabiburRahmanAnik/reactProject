@@ -1,6 +1,8 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
+import ChangePassword from './ChangePassword';
 import CheckAvailableRoom from './CheckAvailableRoom';
+import Dashboard from './Dashboard';
 import ManageSalary from './ManageSalary';
 import RoomBooking from './RoomBooking';
 import UpdateSalary from './UpdateSalary';
@@ -13,6 +15,9 @@ import WorkSchedule from './WorkSchedule';
 const RouteLink = (props) => {
   return (
     <>
+    <Route path="/admin/dashboard" exact>
+          <Dashboard />
+        </Route>
       <Route path="/admin/manageSalary" exact>
           <ManageSalary />
         </Route>
@@ -39,6 +44,9 @@ const RouteLink = (props) => {
         </Route>
         <Route path="/admin/viewDetails/:id" exact>
           <ViewUserDetails />
+        </Route>
+        <Route path="/admin/changePassword" exact>
+          <ChangePassword />
         </Route>
     </>
   );
