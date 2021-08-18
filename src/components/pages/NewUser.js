@@ -1,14 +1,34 @@
 import React from 'react';
+import { useContext } from 'react';
+import UserContext from '../context/user-context';
+import useHttp from '../hooks/use-http';
 import AddUser from './AddUser';
 
 const NewUser = (props) => {
+  const {users,setUsers} = useContext(UserContext);
+  const { sendRequest: fetchRequest } = useHttp();
+
+  const editUser = (userData, id) => {
+    fetchRequest(
+      {
+        url: `http://localhost:8000/api/edit/${id}`,
+        method: 'POST',
+        body: userData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+      setUsers
+    );
+  };
+
   return (
     <>
       {props.user.map((u) => (
         <AddUser
           key={u.id}
           status="edit"
-          editUser={props.editUser}
+          onEditUser={editUser}
           username={u.username}
           email={u.email}
           phone={u.phone}

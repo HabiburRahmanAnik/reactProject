@@ -18,22 +18,6 @@ function App() {
   const {users,setUsers} = useContext(UserContext);
   const { sendRequest: fetchRequest } = useHttp();
 
-  const editUser = (userData, id) => {
-    fetchRequest(
-      {
-        url: `http://localhost:8000/api/edit/${id}`,
-        method: 'POST',
-        body: userData,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-      setUsers
-    );
-  };
-
-  
-
   const [user, setUser] = useState([]);
 
   const fetchUser = (id) => {
@@ -65,11 +49,10 @@ function App() {
           <AddUser status="add"/>
         </Route>
         <Route path="/admin/editUser/:id" exact>
-          <NewUser status="edit" editUser={editUser} user={user} />
+          <NewUser status="edit" user={user} />
         </Route>
         <Route path="/admin/viewUserList" exact>
           <ViewUserList
-            userlist={users}
             fetchUser={fetchUser}
           />
         </Route>

@@ -75,7 +75,7 @@ const AddUser = (props) => {
         active:enteredActive,
       };
 
-      props.editUser(userData,id);
+      props.onEditUser(userData,id);
     }  
     history.push('/admin/viewUserList');
 

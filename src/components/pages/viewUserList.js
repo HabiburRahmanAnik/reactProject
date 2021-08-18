@@ -1,8 +1,12 @@
 import React from 'react';
+import { useContext } from 'react';
+import UserContext from '../context/user-context';
 import './dass.css';
 import UserList from './UserList';
 
 const ViewUserList = (props) => {
+    const {users} = useContext(UserContext);
+
   return (
     <div>
       <table className="tables" style={{ marginTop: '150px' }}>
@@ -15,7 +19,7 @@ const ViewUserList = (props) => {
         </thead>
 
         <tbody>
-          {props.userlist.map((user) => (
+          {users.map((user) => (
             <UserList
               key={user.id}
               id={user.id}
