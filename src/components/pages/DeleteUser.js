@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import UserContext from '../context/user-context';
 import { Button, Modal } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import swal from 'sweetalert';
+
 
 const DeleteUser = () => {
   const utx = useContext(UserContext);

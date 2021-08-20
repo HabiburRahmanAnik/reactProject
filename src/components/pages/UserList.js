@@ -1,7 +1,6 @@
 import React,{useContext} from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../context/user-context';
-import { Button,Modal } from "react-bootstrap";
 
 const UserList = (props) => {
   const utx = useContext(UserContext);

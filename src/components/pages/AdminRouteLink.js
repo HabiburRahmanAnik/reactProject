@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import AddUser from './AddUser';
+import {SalaryContextProvider} from '../context/salary-context';
 import ChangePassword from './ChangePassword';
 import CheckAvailableRoom from './CheckAvailableRoom';
 import Dashboard from './Dashboard';
@@ -37,14 +38,16 @@ const AdminRouteLink = () => {
       <Route path="/logout" exact>
         <Redirect to="/login" />
       </Route>
+      <SalaryContextProvider>
       <Route path="/admin/manageSalary" exact>
         <ManageSalary />
       </Route>
-      <Route path="/admin/workSchedule" exact>
-        <WorkSchedule />
-      </Route>
       <Route path="/admin/manageSalary/:id" exact>
         <UpdateSalary />
+      </Route>
+      </SalaryContextProvider>
+      <Route path="/admin/workSchedule" exact>
+        <WorkSchedule />
       </Route>
       <Route path="/admin/doctorReview" exact>
         <ViewDoctorReview />

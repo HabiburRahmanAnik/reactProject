@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {useContext } from 'react';
 import './dass.css';
-import useHttp from '../hooks/use-http';
 import SalaryList from './SalaryList';
+import SalaryContext from '../context/salary-context';
 
 const ManageSalary = () => {
-  const { isLoading, sendRequest } = useHttp();
-  const [salaries, setSalaries] = useState([]);
-
-  useEffect(() => {
-    const manageSalary = (data) => {
-      setSalaries(data);
-    };
-    sendRequest(
-      { url: 'http://localhost:8000/api/manageSalary' },
-      manageSalary
-    );
-  }, [sendRequest]);
+ const context = useContext(SalaryContext)
 
   return (
     <>
-      {isLoading && <div className="loader"></div>}
-      {!isLoading && <table className="tables" style={{ marginTop: '150px', minWidth: '65%' }}>
+      {context.isLoading && <div class="loader"></div>}
+      {!context.isLoading && <table className="tables" style={{ marginTop: '150px', minWidth: '65%' }}>
         <thead>
           <th>Username</th>
           <th>Email</th>
@@ -29,7 +18,7 @@ const ManageSalary = () => {
           <th>Action</th>
         </thead>
         <tbody>
-          {salaries.map((salary) => (
+          {context.salaries.map((salary) => (
             <SalaryList
               key={salary.id}
               id={salary.id}
