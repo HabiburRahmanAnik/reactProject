@@ -5,11 +5,12 @@ import './dass.css';
 import UserList from './UserList';
 
 const ViewUserList = (props) => {
-    const {users} = useContext(UserContext);
+    const utx = useContext(UserContext);
 
   return (
     <div>
-      <table className="tables" style={{ marginTop: '150px' }}>
+      {utx.isLoading && <div className="loader"></div>}
+     {!utx.isLoading && <table className="tables" style={{ marginTop: '150px' }}>
         <thead>
           <th>Username</th>
           <th>Email</th>
@@ -19,7 +20,7 @@ const ViewUserList = (props) => {
         </thead>
 
         <tbody>
-          {users.map((user) => (
+          {utx.users.map((user) => (
             <UserList
               key={user.id}
               id={user.id}
@@ -31,7 +32,7 @@ const ViewUserList = (props) => {
             />
           ))}
         </tbody>
-      </table>
+      </table>}
     </div>
   );
 };

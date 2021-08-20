@@ -15,7 +15,9 @@ const ViewTransactionHistory = () => {
 
 
   return (
-    <table className="tables" style={{ marginTop: '150px', minWidth: '65%' }}>
+    <>
+    {isLoading && <div className="loader"></div>}
+    {!isLoading && <table className="tables" style={{ marginTop: '150px', minWidth: '65%' }}>
       <thead>
         <tr>
           <th>Date</th>
@@ -39,7 +41,8 @@ const ViewTransactionHistory = () => {
           />
         ))}
       </tbody>
-    </table>
+    </table>}
+    </>
   );
 };
 

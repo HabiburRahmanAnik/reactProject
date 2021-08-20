@@ -1,6 +1,7 @@
 import React,{useContext} from 'react';
 import { Link } from 'react-router-dom';
 import UserContext from '../context/user-context';
+import { Button,Modal } from "react-bootstrap";
 
 const UserList = (props) => {
   const utx = useContext(UserContext);
@@ -21,9 +22,11 @@ const UserList = (props) => {
           Block
         </button>
 
-        <button className="btn - btn-danger" style={{ margin: '3px' }} onClick={()=>utx.onDeleteUser(props.id)}>
+        <Link to={`/admin/deleteUser/${props.id}`}>
+        <button className="btn - btn-danger" style={{ margin: '3px' }} >
           Delete
         </button>
+        </Link>
 
         <Link to={`/admin/viewDetails/${props.id}`}>
         <button className="btn - btn-danger" style={{ margin: '3px',backgroundColor:"#7DCEA0",border:'none' }}>

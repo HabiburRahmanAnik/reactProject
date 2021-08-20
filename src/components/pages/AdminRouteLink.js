@@ -1,9 +1,10 @@
 import React from 'react';
-import { Route,Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import AddUser from './AddUser';
 import ChangePassword from './ChangePassword';
 import CheckAvailableRoom from './CheckAvailableRoom';
 import Dashboard from './Dashboard';
+import DeleteUser from './DeleteUser';
 import ManageSalary from './ManageSalary';
 import NewUser from './NewUser';
 import RoomBooking from './RoomBooking';
@@ -15,7 +16,7 @@ import ViewUserDetails from './ViewUserDetails';
 import ViewUserList from './viewUserList';
 import WorkSchedule from './WorkSchedule';
 
-const RouteLink = () => {
+const AdminRouteLink = () => {
   return (
     <>
       <Route path="/admin/dashboard" exact>
@@ -25,14 +26,17 @@ const RouteLink = () => {
         <AddUser status="add" />
       </Route>
       <Route path="/admin/editUser/:id" exact>
-          <NewUser status="edit" />
-        </Route>
-        <Route path="/admin/viewUserList" exact>
-          <ViewUserList/>
-        </Route>
-        <Route path="/logout" exact>
-          <Redirect to="/login" />
-        </Route>
+        <NewUser status="edit" />
+      </Route>
+      <Route path="/admin/deleteUser/:id" exact>
+        <DeleteUser/>
+      </Route>
+      <Route path="/admin/viewUserList" exact>
+        <ViewUserList />
+      </Route>
+      <Route path="/logout" exact>
+        <Redirect to="/login" />
+      </Route>
       <Route path="/admin/manageSalary" exact>
         <ManageSalary />
       </Route>
@@ -67,4 +71,4 @@ const RouteLink = () => {
   );
 };
 
-export default RouteLink;
+export default AdminRouteLink;

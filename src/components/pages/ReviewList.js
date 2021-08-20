@@ -6,7 +6,7 @@ const ReviewList = ({name,message}) => {
             <td>{name}</td>
             <td>{message}</td>
         </tr>
-    )
+    );
 }
 
 export default ReviewList;

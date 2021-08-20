@@ -6,7 +6,7 @@ const WorkSchedule = () => {
   const [workSchedule, setWorkSchedule] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   const [id,setId] = useState('');
-  const {sendRequest } = useHttp();
+  const {isLoading, sendRequest } = useHttp();
 
   useEffect(() => {
     const schedule = (data) => {
@@ -49,7 +49,9 @@ const WorkSchedule = () => {
 
 
   return (
-    <form onSubmit={submitHandler}>
+    <>
+    {isLoading && <div className="loader"></div>}
+    {!isLoading && <form onSubmit={submitHandler}>
       <table className="tables" style={{ marginTop: '150px', minWidth: '60%' }}>
         <thead>
           <th>Username</th>
@@ -72,7 +74,8 @@ const WorkSchedule = () => {
           ))}
         </tbody>
       </table>
-    </form>
+    </form>}
+    </>
   );
 };
 

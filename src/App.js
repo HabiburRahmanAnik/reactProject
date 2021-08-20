@@ -1,18 +1,17 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import AdminRouteLink from './components/pages/AdminRouteLink';
 import AdminNavigation from './components/Layout/AdminNavigation';
-import Login from './components/pages/Login';
-import RouteLink from './components/pages/RouteLink';
 import AuthContext from './components/context/auth-context';
-
+import Login from './components/pages/Login';
 
 function App() {
   const ctx = useContext(AuthContext);
 
   return (
     <>
-      <AdminNavigation isLogin={ctx.isLoggedIn} onLogout={ctx.onLogout} />
+      <AdminNavigation isLoggedIn={ctx.isLoggedIn} onLogout={ctx.onLogout} />
       <Switch>
         <Route path="/" exact>
           <Redirect to="/login" />
@@ -25,7 +24,7 @@ function App() {
         <Route path="/login">
           <Login onLogin={ctx.onLogin} isLoggedIn={ctx.isLoggedIn} />
         </Route>
-        <RouteLink />
+        {localStorage.getItem('isLoggedIn')  && <AdminRouteLink/>}
         {!ctx.isLoggedIn && (
           <Route path="*">
             <Redirect to="/login" />

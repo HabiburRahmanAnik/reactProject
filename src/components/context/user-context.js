@@ -8,12 +8,13 @@ const UserContext = React.createContext({
   onBlockUser: (id) => {},
   onDeleteUser: (id) => {},
   user:[],
-  onFetchUser:(id)=>{}
+  onFetchUser:(id)=>{},
+  isLoading:''
 });
 
 export const UserContextProvider = (props) => {
   const [users, setUsers] = useState([]);
-  const { sendRequest: fetchRequest } = useHttp();
+  const {isLoading, sendRequest: fetchRequest } = useHttp();
 
   useEffect(() => {
     fetchRequest({ url: 'http://localhost:8000/api/list' }, setUsers);
@@ -51,6 +52,7 @@ export const UserContextProvider = (props) => {
         onBlockUser:blockUserHandler,
         onFetchUser:fetchUser,
         user:user,
+        isLoading,
       }}
     >
       {props.children}

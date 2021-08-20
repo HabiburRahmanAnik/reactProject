@@ -25,12 +25,12 @@ const Login = (props) => {
     if(email.trim().length === 0 && password.trim().length === 0){
         alert('Please Enter email and password')
     }
+    authCtx.onLogin(email,password);
 
     if(props.isLoggedIn){
       history.push('/admin/dashboard');
     }
 
-    authCtx.onLogin(email,password);
   };
 
   return (

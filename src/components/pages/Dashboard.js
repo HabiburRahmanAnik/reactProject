@@ -15,20 +15,6 @@ const Dashboard = () => {
 
   return (
     <>
-        {/* <div className="header">
-            <div className='profile'>
-                <img src="./165705284_1391399217860789_3212769307992041414_n.png" alt="" />
-            </div>
-        </div>
-            <div className="profile-container" id='menu'>
-                <ul>
-                    <li style={{fontWeight:'bold',color:'black'}}>Habibur Rahman</li>
-                    <li style={{color:'black'}}>My Profile</li>
-                    <li style={{fontWeight:'bold',color:'black'}}>My Profile</li>
-                </ul>
-            </div> */}
-        
-
         <div className='row'>
             <div className='column'>
                 <div className='card card1'>

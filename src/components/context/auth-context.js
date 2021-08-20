@@ -31,6 +31,7 @@ export const AuthContextProvider = (props) => {
       localStorage.setItem('id', userLoginData.id);
       localStorage.setItem('username', userLoginData.username);
       localStorage.setItem('password', userLoginData.password);
+      localStorage.setItem('type', userLoginData.type);
       setIsLoggedIn(true);
     }
   };
