@@ -7,9 +7,8 @@ const UserContext = React.createContext({
   setUsers: () => {},
   onBlockUser: (id) => {},
   onDeleteUser: (id) => {},
-  user:[],
-  onFetchUser:(id)=>{},
-  isLoading:''
+  isLoading:'',
+  onAddUser:()=>{}
 });
 
 export const UserContextProvider = (props) => {
@@ -35,17 +34,21 @@ export const UserContextProvider = (props) => {
     );
   };
 
-  const [user, setUser] = useState([]);
-
-  const fetchUser = (id) => {
-    const transformUser = (userData) => {
-      setUser(userData);
-    };
+  const addUser = (userData) => {
     fetchRequest(
-      { url: `http://localhost:8000/api/userlist/${id}` },
-      transformUser
+      {
+        url: `http://localhost:8000/api/add`,
+        method: 'POST',
+        body: userData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+      transformedData
     );
+    console.log(userData);
   };
+
 
   return (
     <UserContext.Provider
@@ -54,9 +57,8 @@ export const UserContextProvider = (props) => {
         setUsers: setUsers,
         onDeleteUser: deleteUserHandler,
         onBlockUser:blockUserHandler,
-        onFetchUser:fetchUser,
-        user:user,
         isLoading,
+        onAddUser:addUser
       }}
     >
       {props.children}

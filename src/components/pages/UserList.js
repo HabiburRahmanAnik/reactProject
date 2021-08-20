@@ -12,7 +12,7 @@ const UserList = (props) => {
       <td>{props.active}</td>
       <td>
         <Link to={`/admin/editUser/${props.id}`}>
-        <button className="btn btn-info" style={{ margin: '3px' }} onClick={()=>utx.onFetchUser(props.id)}>
+        <button className="btn btn-info" style={{ margin: '3px' }} >
           Edit
         </button>
         </Link>

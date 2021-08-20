@@ -1,10 +1,15 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import UserContext from '../context/user-context';
 import useHttp from '../hooks/use-http';
 import AddUser from './AddUser';
 
 const NewUser = () => {
+  const params = useParams();
+  const [user,setUser] = useState([]);
   const utx = useContext(UserContext);
   const { sendRequest: fetchRequest } = useHttp();
 
@@ -22,9 +27,20 @@ const NewUser = () => {
     );
   };
 
+    const transformUser = (userData) => {
+      setUser(userData);
+    };
+    
+    useEffect(()=>{
+      fetchRequest(
+        { url: `http://localhost:8000/api/userlist/${params.id}` },
+        transformUser
+      )
+    },[fetchRequest,params.id]);
+
   return (
     <>
-      {utx.user.map((u) => (
+      {user.map((u) => (
         <AddUser
           key={u.id}
           status="edit"
