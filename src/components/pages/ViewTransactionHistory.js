@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useHttp from '../hooks/use-http';
 import TransactionList from './TransactionList';
+import classes from  './TableCommon.module.css'
 
 const ViewTransactionHistory = () => {
   const { isLoading, error, sendRequest: fetchRequest } = useHttp();
@@ -16,8 +17,8 @@ const ViewTransactionHistory = () => {
 
   return (
     <>
-    {isLoading && <div className="loader"></div>}
-    {!isLoading && <table className="tables" style={{ marginTop: '150px', minWidth: '65%' }}>
+    {isLoading && <div className={classes.loader}></div>}
+    {!isLoading && <table className={classes.tables} style={{ marginTop: '150px', minWidth: '65%' }}>
       <thead>
         <tr>
           <th>Date</th>

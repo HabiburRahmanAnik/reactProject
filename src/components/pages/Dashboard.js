@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useHttp from '../hooks/use-http';
-import './dass.css';
+import classes from './dashboard.module.css';
+
 
 const Dashboard = () => {
     const {sendRequest } = useHttp();
@@ -15,21 +16,21 @@ const Dashboard = () => {
 
   return (
     <>
-        <div className='row'>
-            <div className='column'>
-                <div className='card card1'>
+        <div className={classes.row}>
+            <div className={classes.column}>
+                <div className={`${classes.card} ${classes.card1}`}>
                     <h4 >Doctor</h4>
                     <p>{users.doctor}</p>
                 </div>
             </div>
-            <div className='column'>
-                <div className='card card2'>
+            <div className={classes.column}>
+                <div className={`${classes.card} ${classes.card2}`}>
                     <h4>Patient</h4>
                     <p>{users.patient}</p>
                 </div>
             </div>
-            <div className='column'>
-                <div className='card card3'>
+            <div className={classes.column}>
+                <div className={`${classes.card} ${classes.card3}`}>
                     <h4>Receptionist</h4>
                     <p>{users.receptionist}</p>
                 </div>

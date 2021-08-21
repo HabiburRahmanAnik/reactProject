@@ -1,16 +1,16 @@
 import React from 'react';
 import { useContext } from 'react';
 import UserContext from '../context/user-context';
-import './dass.css';
 import UserList from './UserList';
+import classes from './TableCommon.module.css'
 
 const ViewUserList = (props) => {
     const utx = useContext(UserContext);
 
   return (
     <div>
-      {utx.isLoading && <div className="loader"></div>}
-     {!utx.isLoading && <table className="tables" style={{ marginTop: '150px' }}>
+      {utx.isLoading && <div className={classes.loader}></div>}
+     {!utx.isLoading && <table className={classes.tables} style={{ marginTop: '150px' }}>
         <thead>
           <th>Username</th>
           <th>Email</th>

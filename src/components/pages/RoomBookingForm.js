@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { useHistory } from 'react-router-dom';
 import useHttp from '../hooks/use-http';
+import classes from './AddUser.module.css'
 
 const RoomBookingForm = (props) => {
     const history = useHistory();
@@ -67,19 +68,19 @@ const RoomBookingForm = (props) => {
 
     return (
         <>
-        <div className="row-right">
-        <h1 id="user">Booking Room</h1>
+        <div className={classes['row-right']}>
+        <h1 className={classes.user}>Booking Room</h1>
         <form onSubmit={submitHandler}>
           <label htmlFor="roomNo">Room No</label>
           <input
-            id="username"
+            id={classes.username}
             type="text"
             value={enteredRoomNumber}
             onChange={roomHandler}
           />
           <label htmlFor="type">Tyep</label>
           <input
-            id="email"
+            id={classes.email}
             type="text"
             value={type}
             onChange={typeHandler}
@@ -87,17 +88,17 @@ const RoomBookingForm = (props) => {
           <label htmlFor="price">Price</label>
           <input
             type="number"
-            id="salary"
+            id={classes.salary}
             value={price}
             onChange={priceHandler}
           />
           <br />
           <label htmlFor="patientName">Patient Name</label>
-          <input type="text" id="password" value={patientName} onChange={patientNameHandler}/><br />
+          <input type="text" id={classes.password} value={patientName} onChange={patientNameHandler}/><br />
           <label htmlFor="phone">Phone No</label>
-          <input type="text" id="select" value={phoneNo} onChange={phoneHandler}/>
+          <input type="text" id={classes.select} value={phoneNo} onChange={phoneHandler}/>
           
-          <button id="add_button" type="submit">
+          <button id={classes['add_button']} type="submit">
             Booking
           </button>
         </form>

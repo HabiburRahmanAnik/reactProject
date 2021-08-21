@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './TableCommon.module.css';
 
 const ReportList = ({id, name, status, message,onOptionChange, findId }) => {
 
@@ -16,7 +17,7 @@ const ReportList = ({id, name, status, message,onOptionChange, findId }) => {
       <td>{message}</td>
       <td>{status}</td>
       <td>
-        <select id="select-option" onChange={optionChangeHandler}>
+        <select id={classes['select-option']} onChange={optionChangeHandler}>
           <option >Selected Option</option>
           <option value="working">Working</option>
           <option value="fixed">Fixed</option>

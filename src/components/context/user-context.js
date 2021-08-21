@@ -15,19 +15,25 @@ export const UserContextProvider = (props) => {
   const [users, setUsers] = useState([]);
   const {isLoading, sendRequest: fetchRequest } = useHttp();
 
-  const transformedData = (data)=>{
-    setUsers(data);
-  }
 
   useEffect(() => {
+    const transformedData = (data)=>{
+      setUsers(data);
+    }
     fetchRequest({ url: 'http://localhost:8000/api/list' }, transformedData);
   }, [fetchRequest]);
 
   const deleteUserHandler = (id) => {
+    const transformedData = (data)=>{
+      setUsers(data);
+    }
     fetchRequest({ url: `http://localhost:8000/api/delete/${id}` }, transformedData);
   };
 
   const blockUserHandler = (id) => {
+    const transformedData = (data)=>{
+      setUsers(data);
+    }
     fetchRequest(
       { url: `http://localhost:8000/api/block/${id}`, method: 'POST' },
       transformedData
@@ -35,6 +41,9 @@ export const UserContextProvider = (props) => {
   };
 
   const addUser = (userData) => {
+    const transformedData = (data)=>{
+      setUsers(data);
+    }
     fetchRequest(
       {
         url: `http://localhost:8000/api/add`,

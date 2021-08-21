@@ -1,5 +1,5 @@
 import React, {useContext } from 'react';
-import './dass.css';
+import classes from './TableCommon.module.css'
 import SalaryList from './SalaryList';
 import SalaryContext from '../context/salary-context';
 
@@ -8,8 +8,8 @@ const ManageSalary = () => {
 
   return (
     <>
-      {context.isLoading && <div class="loader"></div>}
-      {!context.isLoading && <table className="tables" style={{ marginTop: '150px', minWidth: '65%' }}>
+      {context.isLoading && <div class={classes.loader}></div>}
+      {!context.isLoading && <table className={classes.tables} style={{ marginTop: '150px', minWidth: '65%' }}>
         <thead>
           <th>Username</th>
           <th>Email</th>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useHttp from '../hooks/use-http';
 import RoomList from './RoomList';
+import classes from './TableCommon.module.css';
 
 const CheckAvailableRoom = () => {
   const { isLoading, sendRequest } = useHttp();
@@ -15,8 +16,8 @@ const CheckAvailableRoom = () => {
 
   return (
     <>
-    {isLoading && <div className="loader"></div>}
-      {!isLoading && <table className="tables" style={{ marginTop: '150px', minWidth: '65%' }}>
+    {isLoading && <div className={classes.loader}></div>}
+      {!isLoading && <table className={classes.tables} style={{ marginTop: '150px', minWidth: '65%' }}>
         <thead style={{ backgroundColor: 'white' }}>
           <th>Room No</th>
           <th>Type</th>

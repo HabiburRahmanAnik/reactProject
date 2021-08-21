@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './TableCommon.module.css';
 
 const WorkScheduleList = ({id,username,status,type,findId,onOptionChange}) => {
 
@@ -15,7 +16,7 @@ const WorkScheduleList = ({id,username,status,type,findId,onOptionChange}) => {
             <td>{type}</td>
             <td>{status}</td>
             <td>
-                <select name="workShift" id='select-option' onChange={optionChangeHandler}>
+                <select name="workShift" id={classes['select-option']} onChange={optionChangeHandler}>
                   <option>Select status</option>
                   <option value="day shift">Day shift</option>
                   <option value="night shift">Night Shift</option>

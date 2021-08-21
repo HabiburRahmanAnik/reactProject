@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './dass.css';
 import useHttp from '../hooks/use-http';
 import ReviewList from './ReviewList';
+import classes from './TableCommon.module.css'
 
 const ViewDoctorReview = () => {
   const { isLoading, sendRequest } = useHttp();
@@ -13,9 +13,9 @@ const ViewDoctorReview = () => {
 
   return (
     <>
-    {isLoading && <div className="loader"></div>}
+    {isLoading && <div className={classes.loader}></div>}
       {! isLoading && <table
-        className="tables"
+        className={classes.tables}
         style={{ marginTop: '200px', minWidth: '50%', marginLeft: '400px' }}
       >
         <thead>

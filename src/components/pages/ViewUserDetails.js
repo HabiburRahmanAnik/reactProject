@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useHttp from '../hooks/use-http';
 import { useParams } from 'react-router-dom';
 import DetailsPage from './DetailsPage';
+import classes from './TableCommon.module.css'
 
 const ViewUserDetails = () => {
   const [userDetails, setUserDetails] = useState([]);
@@ -18,9 +19,9 @@ const ViewUserDetails = () => {
 
   return (
     <>
-    {isLoading && <div className="loader"></div>}
+    {isLoading && <div className={classes.loader}></div>}
      {!isLoading && <table
-        class="tables"
+        class={classes.tables}
         style={{ marginTop: '150px', minWidth: '55%', marginLeft: '450px' }}
       >
         {userDetails.map((user) => (

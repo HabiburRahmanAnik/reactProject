@@ -1,0 +1,25 @@
+.side-bar{
+	width:255px;
+	height: 100%;
+	background-color:  #3498DB   ;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.side-bar ul{
+	margin-left: -25px;
+}
+
+.side-bar ul li a{
+	display: block;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.side-bar li{
+	padding:11px;
+	transition: .4s;
+}
+.side-bar li:hover{
+	background-color: #21618c;
+}

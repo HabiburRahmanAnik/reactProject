@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useHttp from '../hooks/use-http';
 import WorkScheduleList from './workScheduleList';
+import classes from './TableCommon.module.css';
 
 const WorkSchedule = () => {
   const [workSchedule, setWorkSchedule] = useState([]);
@@ -50,9 +51,9 @@ const WorkSchedule = () => {
 
   return (
     <>
-    {isLoading && <div className="loader"></div>}
+    {isLoading && <div className={classes.loader}></div>}
     {!isLoading && <form onSubmit={submitHandler}>
-      <table className="tables" style={{ marginTop: '150px', minWidth: '60%' }}>
+      <table className={classes.tables} style={{ marginTop: '150px', minWidth: '60%' }}>
         <thead>
           <th>Username</th>
           <th>Type</th>

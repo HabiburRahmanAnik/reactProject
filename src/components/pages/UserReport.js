@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './dass.css';
+import classes from './TableCommon.module.css';
 import useHttp from '../hooks/use-http';
 import ReportList from './ReportList';
 
@@ -51,10 +51,10 @@ const UserReport = () => {
 
   return (
     <>
-      {isLoading && <div className="loader"></div>}
+      {isLoading && <div className={classes.loader}></div>}
       {!isLoading && <form onSubmit={submitHandler}>
           <table
-            className="tables"
+            className={classes.tables}
             style={{ marginTop: '150px', minWidth: '60%' }}
           >
             <thead>

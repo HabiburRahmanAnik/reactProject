@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import UserContext from '../context/user-context';
+import classes from './AddUser.module.css'
 
 const AddUserForm = (props) => {
   const [enteredUsername, setEnteredUsername] = useState(props.status==='edit'?props.username:'');
@@ -63,13 +64,13 @@ const AddUserForm = (props) => {
   };
     return (
         <>
-        {utx.isLoading && <div className='loader'></div>}
-        {!utx.isLoading && <div className="row-right">
-        <h1 id="user">{props.status === 'add' ? 'Add User' : 'Edit User'}</h1>
+        {utx.isLoading && <div className={classes.loader}></div>}
+        {!utx.isLoading && <div className={classes['row-right']}>
+        <h1 className={classes.user}>{props.status === 'add' ? 'Add User' : 'Edit User'}</h1>
         <form onSubmit={submitHandler}>
           <label htmlFor="username">Username</label>
           <input
-            id="username"
+            id={classes.username}
             type="text"
             name="username"
             value={enteredUsername}
@@ -77,7 +78,7 @@ const AddUserForm = (props) => {
           />
           <label htmlFor="username">Email</label>
           <input
-            id="email"
+            id={classes.email}
             type="email"
             name="email"
             value={enteredEmail}
@@ -86,7 +87,7 @@ const AddUserForm = (props) => {
           <label htmlFor="salary">Phone</label>
           <input
             type="text"
-            id="salary"
+            id={classes.salary}
             value={enteredPhone}
             onChange={phoneHandler}
           />
@@ -94,7 +95,7 @@ const AddUserForm = (props) => {
           {props.status === 'add' && <label htmlFor="password">Password</label>}
           {props.status === 'add' && (
             <input
-              id="password"
+              id={classes.password}
               type="password"
               name="password"
               value={enteredPassword}
@@ -107,7 +108,7 @@ const AddUserForm = (props) => {
               type="number"
               min="0"
               max="1"
-              id="active"
+              id={classes.active}
               value={enteredActive}
               onChange={activeHandler}
             />
@@ -116,7 +117,7 @@ const AddUserForm = (props) => {
           {props.status === 'add' && (
             <select
               name="type"
-              id="select"
+              id={classes.select}
               value={enteredType}
               onChange={typeHandler}
             >
@@ -126,7 +127,7 @@ const AddUserForm = (props) => {
               <option value="receptionist">Receptionist</option>
             </select>
           )}
-          <button id="add_button" type="submit">
+          <button id={classes['add_button']} type="submit">
             {props.status === 'add' ? 'Add User' : 'Edit User'}
           </button>
         </form>

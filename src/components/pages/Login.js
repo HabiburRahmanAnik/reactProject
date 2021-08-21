@@ -9,55 +9,92 @@ const Login = (props) => {
   const authCtx = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [passwordIsValid, setPasswordIsValid] = useState(true);
+
   const history = useHistory();
 
   const emailHandler = (e) => {
     setEmail(e.target.value);
+
+    if (e.target.value.trim() !== '') {
+      setEmailIsValid(true);
+    }
   };
 
   const passwordHandler = (e) => {
     setPassword(e.target.value);
+
+    if (e.target.value.trim() !== '') {
+      setPasswordIsValid(true);
+    }
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if(email.trim().length === 0 && password.trim().length === 0){
-        alert('Please Enter email and password')
+    if (email.trim().length === 0) {
+      setEmailIsValid(false);
+      //  return;
     }
-    authCtx.onLogin(email,password);
+    if (password.trim().length === 0) {
+      setPasswordIsValid(false);
+      // return;
+    }
 
-    if(props.isLoggedIn){
+    if (email.trim().length > 0 && password.trim().length > 0) {
+      authCtx.onLogin(email, password);
+    }
+
+    if (props.isLoggedIn) {
       history.push('/admin/dashboard');
     }
-
   };
+  
+  const errorMsg= authCtx.userLoginData;
 
   return (
-    <div class={classes.login}>
-      <h1>Login</h1>
-      <form onSubmit={submitHandler}>
-        <label htmlFor="email">E-Mail</label>
-        <input
-          id={classes.name}
-          type="email"
-          name="email"
-          onChange={emailHandler}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          id={classes.pass}
-          type="password"
-          name="password"
-          onChange={passwordHandler}
-        />
-        <div className={classes.actions}>
-          <button type="submit" className={classes.button}>
-            Login
-          </button>
-        </div>
-      </form>
-    </div>
+    <>
+    {authCtx.error && <div className={classes.error}>
+        {errorMsg.invalid}
+      </div>}
+      <div class={classes.login}>
+        <h1>Login</h1>
+        <form onSubmit={submitHandler}>
+          <input
+            id={classes.name}
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={emailHandler}
+          />
+          {!emailIsValid && (
+            <label className={classes['error-text']}>
+              Email must not be empty.
+            </label>
+          )}
+          <br />
+          <br />
+          <input
+            id={classes.pass}
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={passwordHandler}
+          />
+          {!passwordIsValid && (
+            <label className={classes['error-text']}>
+              Password must not be empty.
+            </label>
+          )}
+          <div className={classes.actions}>
+            <button type="submit" className={classes.button}>
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

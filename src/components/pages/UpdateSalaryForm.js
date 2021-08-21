@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SalaryContext from '../context/salary-context';
+import classes from './AddUser.module.css';
 
 const UpdateSalaryForm = (props) => {
   const history = useHistory();
@@ -40,21 +41,21 @@ const UpdateSalaryForm = (props) => {
 
   return (
     <>
-      {context.isLoading && <div className="loader"></div>}
+      {context.isLoading && <div className={classes.loader}></div>}
       {!context.isLoading && (
-        <div className="row-right" style={{ height: '520px' }}>
+        <div className={classes['row-right']} style={{ height: '520px' }}>
           <h1 id="user">Update Salary</h1>
           <form onSubmit={submitHandler}>
             <label htmlFor="username">Username</label>
             <input
-              id="username"
+              id={classes.username}
               type="text"
               value={username}
               onChange={usernameHandler}
             />
             <label htmlFor="username">Email</label>
             <input
-              id="email"
+              id={classes.email}
               type="email"
               value={email}
               onChange={emailHandler}
@@ -62,20 +63,20 @@ const UpdateSalaryForm = (props) => {
             <label htmlFor="salary">Current Salary</label>
             <input
               type="text"
-              id="salary"
+              id={classes.salary}
               value={currentSalary}
               onChange={currentSalaryHandler}
             />
             <label htmlFor="salary">Update Salary</label>
             <input
               type="text"
-              id="salary"
+              id={classes.salary}
               value={updateSalary}
               onChange={updateSalaryHandler}
             />
             <br />
 
-            <button id="add_button" type="submit">
+            <button id={classes['add_button']}type="submit">
               Save
             </button>
           </form>
